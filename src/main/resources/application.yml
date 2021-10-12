@@ -1,0 +1,22 @@
+spring:
+  cache:
+    type: none
+  application:
+    name: @project.artifactId@
+    version: @project.version@
+  datasource:
+    continue-on-error: true
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_DATABASE:okapi_modules}
+  liquibase:
+    enabled: false
+
+logging:
+  level:
+    org:
+      springframework:
+        cache: OFF
+
+server.port: 8081
+folio.tenant.validation.enabled: false
