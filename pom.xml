@@ -41,7 +41,7 @@
       <exclusions>
         <exclusion>
           <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-to-slf4j</artifactId>
+          <artifactId>git push </artifactId>
         </exclusion>
       </exclusions>
 		</dependency>
