@@ -170,8 +170,8 @@
               <inputSpec>${bulk-edit.yaml.file}</inputSpec>
               <output>${project.build.directory}/generated-sources</output>
               <generatorName>spring</generatorName>
-              <modelPackage>${project.groupId}.rs.domain.dto</modelPackage>
-              <apiPackage>${project.groupId}.rs.rest.resource</apiPackage>
+<!--              <modelPackage>${project.groupId}.domain.dto</modelPackage>-->
+<!--              <apiPackage>${project.groupId}.rest.resource</apiPackage>-->
               <generateApis>true</generateApis>
               <generateApiTests>true</generateApiTests>
               <generateApiDocumentation>true</generateApiDocumentation>
