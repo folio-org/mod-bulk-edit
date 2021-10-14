@@ -18,6 +18,16 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.xml
 
+management:
+  endpoints:
+    web:
+      base-path: /admin
+    health:
+      defaults:
+        enabled: false
+      readinessstate:
+        enabled: true
+
 logging:
   level:
     org:
