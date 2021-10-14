@@ -26,7 +26,6 @@
 		<java.version>11</java.version>
 		<folio-spring-base-version>2.0.0</folio-spring-base-version>
     <postgresql.version>42.2.18</postgresql.version>
-    <embedded.db.version>1.6.2</embedded.db.version>
     <openapi-generator.version>5.1.1</openapi-generator.version>
     <bulk-edit.yaml.file>src/main/resources/swagger.api/bulk-edit.yaml</bulk-edit.yaml.file>
 	</properties>
@@ -58,13 +57,6 @@
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.zonky.test</groupId>
-      <artifactId>embedded-database-spring-test</artifactId>
-      <version>${embedded.db.version}</version>
-      <scope>test</scope>
     </dependency>
 	</dependencies>
 
