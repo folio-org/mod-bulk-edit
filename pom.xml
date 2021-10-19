@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.5</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
 
-	<groupId>org.folio</groupId>
-	<artifactId>mod-bulk-edit</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+  <groupId>org.folio</groupId>
+  <artifactId>mod-bulk-edit</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-	<licenses>
-		<license>
-			<name>Apache License 2.0</name>
-			<url>https://spdx.org/licenses/Apache-2.0</url>
-		</license>
-	</licenses>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://spdx.org/licenses/Apache-2.0</url>
+    </license>
+  </licenses>
 
-	<properties>
-		<java.version>11</java.version>
-		<folio-spring-base-version>2.0.0</folio-spring-base-version>
+  <properties>
+    <java.version>11</java.version>
+    <folio-spring-base-version>2.0.0</folio-spring-base-version>
     <postgresql.version>42.2.18</postgresql.version>
     <openapi-generator.version>5.1.1</openapi-generator.version>
-    <bulk-edit.yaml.file>src/main/resources/swagger.api/bulk-edit.yaml</bulk-edit.yaml.file>
-	</properties>
+    <bulk-edit.yaml.file>src/main/resources/swagger.api/bulk-edit.yaml
+    </bulk-edit.yaml.file>
+    <spring-version>2.5.5</spring-version>
+    <start-class>org.folio.ModBulkEditApplication</start-class>
+  </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.folio</groupId>
-			<artifactId>folio-spring-base</artifactId>
-			<version>${folio-spring-base-version}</version>
-		</dependency>
+  <dependencies>
+    <dependency>
+      <groupId>org.folio</groupId>
+      <artifactId>folio-spring-base</artifactId>
+      <version>${folio-spring-base-version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>${spring-version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.logging.log4j</groupId>
@@ -51,17 +55,34 @@
           <artifactId>logback-classic</artifactId>
         </exclusion>
       </exclusions>
-		</dependency>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-to-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
     </dependency>
-	</dependencies>
+  </dependencies>
 
-	<build>
-		<plugins>
+  <build>
+    <finalName>${project.artifactId}-fat</finalName>
+    <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -124,12 +145,20 @@
             <configuration>
               <fileSets>
                 <fileSet>
-                  <sourceFile>${project.build.directory}/ModuleDescriptor-template.json</sourceFile>
-                  <destinationFile>${project.build.directory}/ModuleDescriptor.json</destinationFile>
+                  <sourceFile>
+                    ${project.build.directory}/ModuleDescriptor-template.json
+                  </sourceFile>
+                  <destinationFile>
+                    ${project.build.directory}/ModuleDescriptor.json
+                  </destinationFile>
                 </fileSet>
                 <fileSet>
-                  <sourceFile>${project.build.directory}/DeploymentDescriptor-template.json</sourceFile>
-                  <destinationFile>${project.build.directory}/DeploymentDescriptor.json</destinationFile>
+                  <sourceFile>
+                    ${project.build.directory}/DeploymentDescriptor-template.json
+                  </sourceFile>
+                  <destinationFile>
+                    ${project.build.directory}/DeploymentDescriptor.json
+                  </destinationFile>
                 </fileSet>
               </fileSets>
             </configuration>
@@ -170,15 +199,14 @@
               <inputSpec>${bulk-edit.yaml.file}</inputSpec>
               <output>${project.build.directory}/generated-sources</output>
               <generatorName>spring</generatorName>
-<!--              <modelPackage>${project.groupId}.domain.dto</modelPackage>-->
-<!--              <apiPackage>${project.groupId}.rest.resource</apiPackage>-->
+              <!--              <modelPackage>${project.groupId}.domain.dto</modelPackage>-->
+              <!--              <apiPackage>${project.groupId}.rest.resource</apiPackage>-->
               <generateApis>true</generateApis>
               <generateApiTests>true</generateApiTests>
               <generateApiDocumentation>true</generateApiDocumentation>
               <generateModels>true</generateModels>
               <generateModelTests>false</generateModelTests>
               <generateSupportingFiles>true</generateSupportingFiles>
-              <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
               <generateModelDocumentation>true</generateModelDocumentation>
               <configOptions>
                 <java8>true</java8>
@@ -231,39 +259,42 @@
           <localCheckout>true</localCheckout>
         </configuration>
       </plugin>
-		</plugins>
-	</build>
+    </plugins>
+  </build>
 
-	<repositories>
-		<repository>
-			<id>folio-nexus</id>
-			<name>FOLIO Maven repository</name>
-			<url>https://repository.folio.org/repository/maven-folio</url>
-		</repository>
-	</repositories>
+  <repositories>
+    <repository>
+      <id>folio-nexus</id>
+      <name>FOLIO Maven repository</name>
+      <url>https://repository.folio.org/repository/maven-folio</url>
+    </repository>
+  </repositories>
 
-	<distributionManagement>
-		<repository>
-			<id>folio-nexus</id>
-			<name>FOLIO Release Repository</name>
-			<url>https://repository.folio.org/repository/maven-releases/</url>
-			<uniqueVersion>false</uniqueVersion>
-			<layout>default</layout>
-		</repository>
-		<snapshotRepository>
-			<id>folio-nexus</id>
-			<name>FOLIO Snapshot Repository</name>
-			<uniqueVersion>true</uniqueVersion>
-			<url>https://repository.folio.org/repository/maven-snapshots/</url>
-			<layout>default</layout>
-		</snapshotRepository>
-	</distributionManagement>
+  <distributionManagement>
+    <repository>
+      <id>folio-nexus</id>
+      <name>FOLIO Release Repository</name>
+      <url>https://repository.folio.org/repository/maven-releases/</url>
+      <uniqueVersion>false</uniqueVersion>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+      <id>folio-nexus</id>
+      <name>FOLIO Snapshot Repository</name>
+      <uniqueVersion>true</uniqueVersion>
+      <url>https://repository.folio.org/repository/maven-snapshots/</url>
+      <layout>default</layout>
+    </snapshotRepository>
+  </distributionManagement>
 
-	<scm>
-		<url>https://github.com/folio-org/${project.artifactId}</url>
-		<connection>scm:git:git://github.com/folio-org/${project.artifactId}.git</connection>
-		<developerConnection>scm:git:git@github.com:folio-org/${project.artifactId}.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
+  <scm>
+    <url>https://github.com/folio-org/${project.artifactId}</url>
+    <connection>scm:git:git://github.com/folio-org/${project.artifactId}.git
+    </connection>
+    <developerConnection>
+      scm:git:git@github.com:folio-org/${project.artifactId}.git
+    </developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
 </project>
